@@ -1,7 +1,14 @@
-const Nav = () => (
-  <div>
-    Hi there
-  </div>
-)
+import Navigation from "./Navigation";
+import MobileNavigation from "./MobileNavigation";
 
-export default Nav
+const Nav = () => {
+
+  return (
+    <>
+      <Navigation />
+      <MobileNavigation />
+    </>
+  )
+};
+
+export default Nav;
