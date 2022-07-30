@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 
 const NavLink = (props: any) => {
@@ -15,9 +15,7 @@ const NavLink = (props: any) => {
       className={`${isActiveLink()} w-max text-2xl duration-100 decoration-2 decoration-orange-500 underline-offset-8`}
     >
       <Link href={props.linkTo}>
-        <a className="">
-          {props.linkText}
-        </a>
+        <a className="">{props.linkText}</a>
       </Link>
     </motion.li>
   );
