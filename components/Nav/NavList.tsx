@@ -2,7 +2,7 @@ import NavLink from "./NavLink";
 
 const NavList = () => {
   const navItems = [
-    { linkText: "Projects", linkTo: "/" },
+    { linkText: "Projects", linkTo: "/projects" },
     { linkText: "Tasks", linkTo: "/tasks" },
     { linkText: "Calendar", linkTo: "/calendar" },
     { linkText: "Settings", linkTo: "/settings" },

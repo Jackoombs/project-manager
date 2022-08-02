@@ -15,7 +15,7 @@ const MobileNavigation = () => {
       opacity: 1,
       x: 0,
       transition: {
-        opacity: { duration: 0.7 },
+        opacity: { duration: 0.4 },
         type: "spring",
         mass: 0.5,
       },
@@ -24,7 +24,8 @@ const MobileNavigation = () => {
       opacity: 0,
       x: "-100%",
       transition: {
-        x: { duration: 0, delay: 0.7 },
+        x: { duration: 0, delay: 0.4 },
+        opacity: { duration: 0.1 },
         type: "spring",
         mass: 0.5,
       },
@@ -33,11 +34,11 @@ const MobileNavigation = () => {
 
   return (
     <nav className="flex items-center lg:hidden">
-      <button className="text-orange-500 text-5xl" onClick={handleClick}>
+      <button className="text-orange-500 text-4xl sm:text-5xl" onClick={handleClick}>
         {menuOpen ? <AiOutlineClose /> : <RiMenu4Line />}
       </button>
       <motion.ul
-        className="w-screen absolute flex flex-col gap-8 justify-start px-16 left-0 top-28"
+        className="w-screen bg-slate-800 z-10 absolute flex flex-col gap-8 justify-start px-16 py-8 left-0 top-20"
         animate={menuOpen ? "open" : "closed"}
         variants={variants}
       >
