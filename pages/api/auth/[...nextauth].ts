@@ -1,10 +1,10 @@
-import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
-import GoogleProvider from "next-auth/providers/google"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
+import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -21,8 +21,8 @@ export default NextAuth({
   ],
   callbacks: {
     session({ session, token, user }) {
-      return session // The return type will match the one returned in `useSession()`
+      return session; // The return type will match the one returned in `useSession()`
     },
   },
   secret: process.env.NEXTAUTH_SECRET!,
-})
+});

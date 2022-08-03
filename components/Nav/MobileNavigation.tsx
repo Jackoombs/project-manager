@@ -34,7 +34,10 @@ const MobileNavigation = () => {
 
   return (
     <nav className="flex items-center lg:hidden">
-      <button className="text-orange-500 text-4xl sm:text-5xl" onClick={handleClick}>
+      <button
+        className="text-orange-500 text-4xl sm:text-5xl"
+        onClick={handleClick}
+      >
         {menuOpen ? <AiOutlineClose /> : <RiMenu4Line />}
       </button>
       <motion.ul
