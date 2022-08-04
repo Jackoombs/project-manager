@@ -1,35 +1,13 @@
 import { useState } from "react";
 import { RiMenu4Line } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import NavList from "./NavList";
 
 const MobileNavigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const handleClick = () => {
     setMenuOpen((state) => !state);
-  };
-
-  const variants = {
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        opacity: { duration: 0.4 },
-        type: "spring",
-        mass: 0.5,
-      },
-    },
-    closed: {
-      opacity: 0,
-      x: "-100%",
-      transition: {
-        x: { duration: 0, delay: 0.4 },
-        opacity: { duration: 0.1 },
-        type: "spring",
-        mass: 0.5,
-      },
-    },
   };
 
   return (
@@ -40,13 +18,39 @@ const MobileNavigation = () => {
       >
         {menuOpen ? <AiOutlineClose /> : <RiMenu4Line />}
       </button>
-      <motion.ul
-        className="w-screen bg-slate-800 z-10 absolute flex flex-col gap-8 justify-start px-16 py-8 left-0 top-20"
-        animate={menuOpen ? "open" : "closed"}
-        variants={variants}
-      >
-        <NavList />
-      </motion.ul>
+      <AnimatePresence initial={false}>
+        {menuOpen && (
+          <motion.ul
+            className="w-screen bg-slate-800 z-10 absolute flex flex-col gap-8 justify-start px-16 py-8 left-0 top-20"
+            initial={{
+              scale:0,
+              opacity: 0,
+              originX: 1,
+              originY: 0,
+            }}
+            animate={{ 
+              opacity: 1,
+              scale:1,
+              transition: {
+                duration: 0.6,
+                type: "spring"
+              }
+            }}
+            exit={{
+              scale: 0,
+              originX: 1,
+              originY: 0,
+              opacity: 0,
+              transition: {
+                type: "linear",
+                duration: 0.15
+              },
+            }}
+          >
+            <NavList />
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
