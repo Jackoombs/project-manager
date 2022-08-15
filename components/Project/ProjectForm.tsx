@@ -6,6 +6,8 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 interface Props {
   setFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,11 +15,17 @@ interface Props {
 }
 
 const ProjectForm = ({ setFormOpen, formOpen }: Props) => {
-  type Inputs = {
-    title: string;
-    description: string;
-    deadline: Date | null;
-  };
+  interface Project {
+    id: string
+    userId: string
+    title: string
+    description: string | null
+    tasks: string[] | null
+    deadline: Date | null
+    createdAt: Date
+    updatedAt: Date
+    completed: Boolean | null
+  }
 
   const {
     register,
@@ -25,24 +33,31 @@ const ProjectForm = ({ setFormOpen, formOpen }: Props) => {
     control,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    fetch("api/projects", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    console.log(data);
+  } = useForm<Project>();
+  const onSubmit: SubmitHandler<Project> = (data) => {
+    useCreateProject.mutate(data)
   };
 
   const handleClick = () => {
     setFormOpen((open) => !open);
   };
 
+  const queryClient: QueryClient = useQueryClient()
+  const useCreateProject = useMutation(
+    (newProject: Project) => axios.post('/api/projects/project', newProject), {
+      onSuccess: newProject => {
+        queryClient.setQueryData<Array<Project>>(['projects'], prevProjects => {
+          if (prevProjects) {
+            return [...prevProjects, newProject.data]
+          } else {
+            return [newProject.data]
+          }
+        })
+      }
+    }
+  )
+
   return (
-    
     <AnimatePresence>
       {formOpen && (
         <motion.form
@@ -77,7 +92,7 @@ const ProjectForm = ({ setFormOpen, formOpen }: Props) => {
           <div>
             <textarea
               className="w-full p-2 rounded bg-orange-200 text-md font-medium placeholder:text-slate-600"
-              placeholder="Project Title"
+              placeholder="Description"
               rows={4}
               {...register("description")}
             />
@@ -93,7 +108,7 @@ const ProjectForm = ({ setFormOpen, formOpen }: Props) => {
                   className="self-center rounded-lg bg-orange-200 text-center text-xl font-bold placeholder:text-slate-600"
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
-                  placeholderText="Project Deadline"
+                  placeholderText="Deadline"
                   minDate={new Date()}
                 />
               )}
