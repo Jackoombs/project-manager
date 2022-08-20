@@ -78,12 +78,12 @@ const ProjectForm = ({ setFormOpen, formOpen }: Props) => {
               type: "linear"
             }
           }}
-          className="flex flex-col gap-2 bg-slate-800 text-slate-800"
+          className="flex flex-col gap-2 bg-slate-800 text-slate-800 sm:w-[600px]"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="">
             <input
-              className="w-full p-2 rounded-lg bg-orange-200 text-center text-2xl font-bold  placeholder:text-slate-600"
+              className="w-full p-2 rounded bg-orange-200 text-center text-2xl font-bold  placeholder:text-slate-600"
               placeholder="Project Title"
               {...register("title", { required: true })}
             />
@@ -105,27 +105,28 @@ const ProjectForm = ({ setFormOpen, formOpen }: Props) => {
               defaultValue={undefined}
               render={({ field }) => (
                 <DatePicker
-                  className="self-center rounded-lg bg-orange-200 text-center text-xl font-bold placeholder:text-slate-600"
+                  className="self-center rounded bg-orange-200 text-center text-xl font-bold p-1 placeholder:text-slate-600"
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
+                  dateFormat="dd/MM/yyyy"
                   placeholderText="Deadline"
                   minDate={new Date()}
                 />
               )}
             />
           </div>
-          <div className="justify-center flex gap-8">
+          <div className="justify-center flex gap-8 pt-4">
             <button
-              className="text-2xl cursor-pointer font-bold bg-orange-500 w-32 py-2 my-8 rounded-xl"
+              className="text-slate-800 text-2xl text-center font-medium bg-orange-300 w-40 rounded py-1 duration-150 hover:bg-orange-500 hover:scale-105"
               onClick={handleClick}
             >
-              BACK
+              Back
             </button>
             <input
-              className="text-2xl text-center cursor-pointer font-bold bg-orange-500 w-32  py-2 my-8 rounded-xl"
+              className="text-slate-800 text-2xl text-center font-medium bg-orange-300 w-40 rounded py-1 duration-150 hover:bg-orange-500 hover:scale-105"
               onClick={handleClick}
               type="submit"
-              value="CREATE"
+              value="Create"
             />
           </div>
         </motion.form>
