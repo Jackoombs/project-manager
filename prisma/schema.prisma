@@ -44,6 +44,7 @@ model User {
   sessions         Session[]
   projects         Project[]
   tasks            Task[]
+  latestProjectID  String?
 }
 
 model VerificationToken {
