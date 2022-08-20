@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import Project from "./Project";
 import NewProject from "./NewProject";
 import ProjectForm from "./ProjectForm";
+import { useProjects } from "../../utils/hooks";
 
 const ProjectList = () => {
   interface Project {
@@ -16,15 +16,6 @@ const ProjectList = () => {
 
   const [formOpen, setFormOpen] = useState(false);
 
-  function useProjects() {
-    return useQuery(["projects"], async () => {
-      const data = await fetch(
-        "api/projects"
-      )
-      return await data.json()
-    });
-  }
-
   const { isLoading, error, data } = useProjects()
 
   if (isLoading) return <h1>"Loading..."</h1>;
@@ -33,11 +24,9 @@ const ProjectList = () => {
     return <h1>{error.message}</h1>;
     // ^?
   }
-
-  console.log(data)
-
+  
   return (
-    <main className="relative h-full flex flex-col gap-8 py-8 px-2">
+    <main className="h-full flex flex-col items-center gap-8 py-8 px-2">
       <ProjectForm formOpen={formOpen} setFormOpen={setFormOpen} />
       
       <AnimatePresence initial={false}>
@@ -62,7 +51,7 @@ const ProjectList = () => {
                 type: "linear"
               }
             }}
-            className="flex flex-col gap-4">
+            className="flex flex-col gap-4 lg:w-[600px]">
             <NewProject setFormOpen={setFormOpen} />
             {data.map((project: Project, index: number) => (
               <Project
