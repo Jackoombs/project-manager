@@ -31,7 +31,7 @@ const createProject = async (req: NextApiRequest, res: NextApiResponse) => {
       description: req.body.description,
       userId: user.id,
       deadline: req.body.deadline,
-      tasks: ["horse"],
+      tasks: [],
     },
   });
 

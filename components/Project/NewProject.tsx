@@ -1,4 +1,4 @@
-import { IoIosCreate } from "react-icons/io";
+import { MdAddBox } from "react-icons/md";
 
 interface Props {
   setFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,10 +12,10 @@ const NewProject = ({ setFormOpen }: Props) => {
   return (
     <>
       <button
-        className="flex items-center justify-center self-center gap bg-orange-200 text-slate-800  text-3xl font-medium w-full rounded mx-2 py-1 duration-150 hover:bg-orange-500"
+        className="flex items-center justify-center self-center gap-2 bg-orange-200 text-slate-800  text-xl font-medium w-full rounded mx-2 py-1 duration-150 hover:bg-orange-500"
         onClick={handleClick}
       >
-        <IoIosCreate />
+        <MdAddBox className="text-2xl"/>
         Create New Project
       </button>
     </>

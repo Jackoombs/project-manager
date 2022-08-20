@@ -7,10 +7,10 @@ interface Props {
 
 const ProjectDeadline = ({ deadline }: Props) => {
   return (
-    <h4 className="flex gap-2 items-center self-center text-2xl font-semibold">
+    <h4 className="flex gap-2 items-center justify-center text-xl font-semibold">
       <HiClock />
       Deadline:
-      <p className="font-xl">{format(parseISO(deadline), "dd/MM/yy")}</p>
+      <p className="text-lg">{format(parseISO(deadline), "dd/MM/yy")}</p>
     </h4>
   );
 };

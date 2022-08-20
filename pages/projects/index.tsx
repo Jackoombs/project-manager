@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import { Header } from "../../components/index";
 import { getSession } from "next-auth/react";
 import ProjectList from "../../components/Project/ProjectList";
@@ -12,7 +12,7 @@ const Projects: NextPage = (session) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   if (!session) {
     return {
